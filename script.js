@@ -70,6 +70,7 @@ const personalMovieDB = {
   actors: {},
   genres: [],
   privat: false,
+
   start: function () {
     personalMovieDB.count = +prompt("Сколько фильмов вы уже посмотрели?", "");
 
@@ -81,6 +82,7 @@ const personalMovieDB = {
       personalMovieDB.count = +prompt("Сколько фильмов вы уже посмотрели?", "");
     }
   },
+
   rememberMyFilms: function () {
     for (let i = 0; i < 2; i++) {
       const a = prompt("Один из последних просмотренных фильмов?", ""),
@@ -115,19 +117,30 @@ const personalMovieDB = {
   },
 
   writeYourGenres: function () {
-    let q;
-    for (let i = 0; i < 3; i++) {
-      q = prompt(`Ваш любимый жанр под номером ${i + 1}`, "");
-      if (q != null && q != "") {
-        personalMovieDB.genres.push(q);
+    // for (let i = 0; i < 3; i++) {
+    //   let genre = prompt(`Ваш любимый жанр под номером ${i + 1}`, "");
+    //   if (genre != null && genre != "") {
+    //     personalMovieDB.genres.push(genre);
+    //   } else {
+    //     console.log("Некорректный ввод");
+    //     i--;
+    //   }
+    // }
+    // personalMovieDB.genres.forEach((element, index) => {
+    //   console.log(`Любимый жанр №${index + 1} - это ${element}`);
+    // });
+    for (let i = 0; i < 1; i++) {
+      let genresAnswers = prompt(
+        `Введите ваши любимые жанры через запятую`,
+        ""
+      ).toLowerCase();
+      if (genresAnswers != null && genresAnswers != "") {
+        personalMovieDB.genres = genresAnswers.split(", ").sort();
       } else {
-        q = prompt(`Ваш любимый жанр под номером ${i + 1}`, "");
+        console.log("Некорректный ввод");
         i--;
       }
     }
-    personalMovieDB.genres.forEach((element) => {
-      console.log(element);
-    });
   },
 
   toggleVisibleMyDB: function () {
@@ -138,9 +151,6 @@ const personalMovieDB = {
     }
   },
 };
-
-personalMovieDB.toggleVisibleMyDB();
-console.log(personalMovieDB.privat);
 
 // const a = prompt("Один из последних просмотренных фильмов?", ""),
 //   b = prompt("На сколько оцените его?", ""),
