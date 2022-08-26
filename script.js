@@ -110,6 +110,15 @@ document.addEventListener("DOMContentLoaded", () => {
     addInput = addForm.querySelector(".adding__input"),
     checkbox = addForm.querySelector("[type='checkbox']");
 
+  const movieList = document.querySelector(".promo__interactive-list"),
+    adv = document.querySelectorAll(".promo__adv img");
+
+  const sortArr = (arr) => {
+    return arr.sort;
+  };
+
+  sortArr(movieDB.movies);
+
   addForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
@@ -117,27 +126,37 @@ document.addEventListener("DOMContentLoaded", () => {
     const favorite = checkbox.checked;
 
     movieDB.movies.push(newFilm);
-    movieDB.movies.sort();
-    createMovieList();
+    sortArr(movieDB.movies);
+
+    function createMovieList(films, parent) {
+      parent.innerHTML = "";
+
+      films.forEach((element, index) => {
+        parent.innerHTML += `<li class="promo__interactive-item">${
+          index + 1
+        }. ${element} 
+      <div class="delete"></div>
+      </li>`;
+      });
+    }
+    createMovieList(movieDB.movies, movieList);
   });
 
-  document.querySelector(".promo__genre").textContent = "Драма";
-  document.querySelector(".promo__adv").remove();
-  document.querySelector(".promo__bg ").style.background =
-    "url(img/bg.jpg) center center/cover no-repeat";
-
-  function createMovieList() {
-    const movieList = document.querySelector(".promo__interactive-list");
-    movieList.innerHTML = "";
-
-    movieDB.movies.forEach((element, index) => {
-      movieList.innerHTML += `<li class="promo__interactive-item">${
-        index + 1
-      }. ${element} 
-    <div class="delete"></div>
-    </li>`;
+  const deleteAdv = (arr) => {
+    arr.forEach((element) => {
+      element.remove();
     });
-  }
+  };
+
+  deleteAdv(adv);
+
+  const makeChanges = () => {
+    document.querySelector(".promo__genre").textContent = "Драма";
+    document.querySelector(".promo__bg ").style.background =
+      "url(img/bg.jpg) center center/cover no-repeat";
+  };
+
+  makeChanges();
 });
 
 const personalMovieDB = {
